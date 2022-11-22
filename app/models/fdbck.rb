@@ -1,0 +1,3 @@
+class Fdbck < ApplicationRecord
+
+end
