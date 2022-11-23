@@ -2,7 +2,7 @@ require 'oauth/request_proxy/typhoeus_request'
 
 
 class TwitterService
-  def self.tweet! (message)
+  def self.tweet!(message)
 
     body = {
       "text": message #OPTIONAL: timestamp prevents "duplicate content" API error
