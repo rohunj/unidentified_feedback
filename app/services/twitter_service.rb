@@ -1,10 +1,11 @@
 require 'oauth/request_proxy/typhoeus_request'
 
+
 class TwitterService
-  def tweet!
+  def self.tweet! (message)
 
     body = {
-      "text": "Testing the Twitter API at #{Time.now.to_i}" # timestamp prevents "duplicate content" API error
+      "text": message #OPTIONAL: timestamp prevents "duplicate content" API error
     }
 
     @consumer = OAuth::Consumer.new(
@@ -28,7 +29,6 @@ class TwitterService
     oauth_helper = OAuth::Client::Helper.new(req, oauth_params.merge(:request_uri => url))
     req.options[:headers].merge!({"Authorization" => oauth_helper.header})
 
-    binding.break
     response = req.run
 
     if response.success?
