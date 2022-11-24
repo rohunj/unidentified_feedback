@@ -1,7 +1,17 @@
 class Feedback < ApplicationRecord
+  # validations
+  before_create :sanitize
   after_create :send_tweet
 
+  validates_presence_of :recipient_handle, :text
+  validates :text, length: { in: 1 .. 250}
+
+def sanitize
+  #insert ANY logic we want regarding the transformation of text, recipient_handle, etc fields
+  self.recipient_handle = self.recipient_handle.gsub('@', '')
+end
+
   def send_tweet
-    TwitterService.tweet!(text) #1. look for text function, then expect it to be on object itself
+    TwitterService.tweet!(self)
   end
 end
